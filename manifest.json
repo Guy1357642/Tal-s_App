@@ -1,0 +1,32 @@
+{
+ "name": "האפליקציה של טל",
+ "short_name": "טל",
+ "start_url": "./index.html",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#f6eefb",
+ "theme_color": "#c9a4d6",
+ "lang": "he",
+ "dir": "rtl",
+ "icons": [
+  {
+   "src": "tal-icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "tal-icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "tal-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
