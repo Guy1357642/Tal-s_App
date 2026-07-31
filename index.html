@@ -2973,5 +2973,41 @@ document.addEventListener('visibilitychange', ()=>{
   if(!document.hidden) requestPersistence();
 });
 </script>
+
+<script>
+/* בדיקת עדכון אוטומטית - נוסף על ידי קלוד */
+(function(){
+  var BUILD = 'v1';
+  function check(){
+    fetch('version.json?cb=' + Date.now(), { cache: 'no-store' })
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        if (!j || !j.build || j.build === BUILD || document.getElementById('up-bar')) return;
+        var bar = document.createElement('div');
+        bar.id = 'up-bar';
+        bar.setAttribute('style','position:fixed;left:0;right:0;bottom:0;z-index:99999;display:flex;gap:10px;'+
+          'align-items:center;justify-content:center;direction:rtl;'+
+          'padding:11px 14px calc(11px + env(safe-area-inset-bottom));'+
+          'background:linear-gradient(#F7E08C,#D8A93A);color:#2A2008;'+
+          'font:700 14px/1.3 -apple-system,system-ui,sans-serif;box-shadow:0 -6px 18px rgba(0,0,0,.35)');
+        var t = document.createElement('span');
+        t.textContent = 'גרסה חדשה זמינה: ' + j.build;
+        var b = document.createElement('button');
+        b.textContent = 'רענן';
+        b.setAttribute('style','background:#2A2008;color:#F7E08C;border:0;border-radius:99px;padding:7px 15px;'+
+          'font:700 14px -apple-system,system-ui,sans-serif');
+        b.onclick = function(){
+          location.replace(location.pathname + '?v=' + encodeURIComponent(j.build) + '&t=' + Date.now());
+        };
+        bar.appendChild(t); bar.appendChild(b);
+        document.body.appendChild(bar);
+      })
+      .catch(function(){});
+  }
+  document.addEventListener('visibilitychange', function(){ if (!document.hidden) check(); });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', check);
+  else check();
+})();
+</script>
 </body>
 </html>
